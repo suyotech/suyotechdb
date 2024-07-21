@@ -24,7 +24,8 @@ This repository provides a lightweight, file-based JSON database system inspired
     - [findOneAndUpdate](#findoneandupdate)
     - [udpateMany](#udpatemany)
     - [deleteMany](#deletemany)
-  - [find](#find)
+    - [find](#find)
+  
 ## Features
 
 - Zero Dependency
@@ -66,7 +67,7 @@ const User =  new Model('users',database_path, userSchema);
 module.exports = User;
 ```
 
-### ES6
+### ESM
 
 ```bash
 import { Schema, Model } from 'suyotechdb' ;
@@ -99,7 +100,7 @@ userModel.createOne({
 ```
 
 ### insertMany
-Use the **createOne** function to add a new item
+Use the **insertMany** function to add a new item
 ```bash
 
 const users = [
@@ -159,7 +160,7 @@ const result = userModel.deleteMany(query);
 console.log(result) // updated successully
 ```
 
-## find
+### find
 This is special query which can use many different chained operations 
 - It supports following operation for query operators
    - **$in** - Finds value in field
@@ -179,5 +180,11 @@ This is special query which can use many different chained operations
 
 ```bash
 const query  = {age  :{$gte: 10}}
-const result = userModel.find(query)
+const result = userModel
+          .find(query)
+          .sort({name : 1})
+          .limit(5)
+          .skip(2)
+          .select({name : 1})
+          .exec()
 ```
