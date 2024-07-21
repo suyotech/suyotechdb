@@ -180,5 +180,4 @@ This is special query which can use many different chained operations
 ```bash
 const query  = {age  :{$gte: 10}}
 const result = userModel.find(query)
-
 ```
