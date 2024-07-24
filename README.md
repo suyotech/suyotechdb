@@ -5,7 +5,7 @@
 
 This repository provides a lightweight, file-based JSON database system inspired by Mongoose ODM. It allows you to model, store, and retrieve data using a schema-based approach similar to Mongoose, but all data is stored in local JSON files.
 
-**Developed by**  - [suyotech.com](#https://suyotech.com)
+### Developed by  - [suyotech.com](https://suyotech.com)
 
 ### Table Of Contents
 - [suyotechdb - File-based JSON Database Inspired by Mongoose ODM](#suyotechdb---file-based-json-database-inspired-by-mongoose-odm)
@@ -64,7 +64,6 @@ const database_path  = "./db";
 
 const User =  new Model('users',database_path, userSchema);
 
-module.exports = User;
 ```
 
 ### ESM
@@ -83,7 +82,6 @@ const database_path  = "./db"
 
 const userModel =  new Model('users',databse_path, userSchema);
 
-export default User;
 ```
 
 ## CRUD Operations
