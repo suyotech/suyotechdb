@@ -1,20 +1,48 @@
 {
   "name": "suyotechdb",
   "description": "JSON File Based Database Inspired by Mongoose ODM",
-  "version": "0.0.4",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "version": "0.0.5",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "build" : "node build.mjs"
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "watch": "npm run build -- --watch src",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "url": "https://github.com/suyotech/suyotechdb.git"
   },
-  "files": ["/dist","README.md"],
-  "keywords": ["embeddable","lightweight","json","file based","db","database","mongoose","odm","suyotechdb","suyotech","nodejs","node"],
+  "files": [
+    "/dist",
+    "README.md"
+  ],
+  "keywords": [
+    "embeddable",
+    "lightweight",
+    "json",
+    "file based",
+    "db",
+    "database",
+    "mongoose",
+    "odm",
+    "suyotechdb",
+    "suyotech",
+    "nodejs",
+    "node"
+  ],
   "author": "suyotech.com",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "esbuild": "^0.23.0"
+    "@types/node": "^20.14.12",
+    "tsup": "^8.2.2",
+    "typescript": "^5.5.4"
   }
 }
