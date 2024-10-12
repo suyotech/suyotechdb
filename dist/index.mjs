@@ -16,16 +16,20 @@ var Schema = class {
     for (const key of Object.keys(this.schema)) {
       const { type, required, default: defaultValue } = this.schema[key];
       let value = data[key];
+      if (value === void 0 && defaultValue !== void 0) {
+        value = defaultValue;
+      }
       if (required && value === void 0) {
         throw new Error(`Field '${key}' is required but missing in data`);
-      }
-      if (value === void 0) {
-        value = defaultValue;
       }
       if (type && value !== void 0) {
         const isTypeValid = this.validateType(value, type);
         if (!isTypeValid) {
-          throw new Error(`Field '${key}' type does not match expected type '${this.getTypeName(type)}'`);
+          throw new Error(
+            `Field '${key}' type does not match expected type '${this.getTypeName(
+              type
+            )}'`
+          );
         }
       }
       validatedData[key] = value;
@@ -146,7 +150,9 @@ var Model = class {
   find(query) {
     try {
       const data = this.#readFile();
-      const outputdata = data.filter((entry) => this.#matchesQuery(entry, query));
+      const outputdata = data.filter(
+        (entry) => this.#matchesQuery(entry, query)
+      );
       return new Operate(outputdata, this.#schema);
     } catch (error) {
       console.error("Error finding documents:", error);
@@ -341,7 +347,9 @@ var Operate = class {
     for (let key in sortObj) {
       const sortOperator = sortObj[key];
       if (sortOperator !== 1 && sortOperator !== -1) {
-        throw new Error(`Invalid sort operator "${sortOperator}" for key "${key}". Use 1 for ascending, -1 for descending.`);
+        throw new Error(
+          `Invalid sort operator "${sortOperator}" for key "${key}". Use 1 for ascending, -1 for descending.`
+        );
       }
       this.data.sort((a, b) => {
         if (sortOperator === 1) {
@@ -379,8 +387,12 @@ var Operate = class {
    * @throws {Error} - Throws error if select key is invalid.
    */
   select(selectObj) {
-    const keysToShow = Object.keys(selectObj).filter((key) => selectObj[key] === 1);
-    const keysToHide = Object.keys(selectObj).filter((key) => selectObj[key] === 0);
+    const keysToShow = Object.keys(selectObj).filter(
+      (key) => selectObj[key] === 1
+    );
+    const keysToHide = Object.keys(selectObj).filter(
+      (key) => selectObj[key] === 0
+    );
     if (keysToShow.length === 0) {
       this.data = this.data.map((obj) => {
         const newObj = {};
